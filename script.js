@@ -105,7 +105,7 @@ function checkBrackets(str) {
         }
     }
 
-    for (let i = 0; i < 20; ) {
+    for (let i = 0; i < filterArr.length; ) {
         const firstElem = defineCollect(filterArr[i]);
         const secondElem = defineCollect(filterArr[i+1]);
 
