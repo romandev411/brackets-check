@@ -68,11 +68,60 @@ function checkSequence (str, {braces}) {
         }
     
     }
-    console.log(stack)
     return stack.isEmpty;
 }
 
 const test1= checkSequence('()+[()]', options);
 const test2= checkSequence('(()+)][()', options);
-console.log(test1)
-console.log(test2)
+// console.log(test1);
+// console.log(test2);
+
+/////////////////////////////////////////////////////
+
+const collection = [
+    ['(', ')'],
+    ['[', ']'],
+    ['{', '}'],
+];
+
+function defineCollect(item) {
+    let res = 0;
+
+    for (let i = 0; i < collection.length; i++) {
+        if (collection[i].includes(item)) {
+            res = (i+1)+''+collection[i].indexOf(item);
+        }
+    }
+
+    return res;
+} 
+
+function checkBrackets(str) {
+    const filterArr = [];
+
+    for (const item of str) {
+        if (defineCollect(item)) {
+            filterArr.push(item)
+        }
+    }
+
+    for (let i = 0; i < 20; ) {
+        const firstElem = defineCollect(filterArr[i]);
+        const secondElem = defineCollect(filterArr[i+1]);
+
+        if ((firstElem[0] === secondElem[0]) && (firstElem < secondElem)) {
+            filterArr.splice(i, 2);
+            i = 0;
+            continue;
+        }
+
+        i++;
+    }
+
+    return !filterArr.length;
+}
+
+const test3 = checkBrackets('(1+1)+[(1+1)]');
+const test4 = checkBrackets('(()+)][()');
+console.log(test3);
+console.log(test4);
